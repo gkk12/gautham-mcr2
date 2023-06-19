@@ -2,42 +2,35 @@ import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { HabitContext } from "..";
-import { habitData } from "../data/habitData";
+import { habitTypesData } from "../data/habitData";
 
 export const LandingPage = () => {
   const navigate = useNavigate();
-  const { habits } = useContext(HabitContext);
-
-  useEffect(() => {
-
-  },[])
-
-  const imageUrlFinder = (name) => {
-
-    // console.log();
-    return habitData.find(habit => habit.imageCategory === name).imageURL;
-  }
-  const imageIdFinder = (name) => {
-    // console.log();
-    return habitData.find(habit => habit.imageCategory === name).imageId;
-  }
+  const { activeHabits,habitTypeImageGetter } = useContext(HabitContext);
   
   return (
     <div>
-      <h2>Habits</h2>
+      <h2>Habit Tracker</h2>
       
       <br/>
       <div onClick={()=>{navigate("/create")
       }}>
-      <p>{habitData[0].imageCategory}</p>
-      <img src={habitData[0].imageURL} width={100} height={200}></img></div><br/>
-      {habits.map(habit => (
-        <div onClick={() => {
-          // imageIdFinder(habit.habitName)
-          navigate(`/about/${imageIdFinder(habit.habitName)}`)
+        <img src={habitTypesData[0].habitTypeImage} style={{
+          cursor: "pointer"}} width={250} height={350}></img>
+      </div><br />
+      <div onClick={()=>{navigate("/archived")
+      }}>
+        <img src={habitTypesData[6].habitTypeImage} style={{
+          cursor: "pointer"}} width={250} height={350}></img>
+      </div><br />
+      <h3>{activeHabits.length >0? "Here are your habits so far":"You have no habits so far. It is time to make some!" }</h3>
+      {activeHabits.map(habit => (
+        <div style={{cursor:"pointer"}} onClick={() => {
+
+          navigate(`/about/${habit.habitId}`)
           }}>
             <p>{habit.habitName}</p>
-            <img src={imageUrlFinder(habit.habitName)} width={100} height={200}></img>
+            <img  src={habitTypeImageGetter(habit.habitTypeImage)}width={250} height={350}></img>
           </div>
         ))}
     </div>

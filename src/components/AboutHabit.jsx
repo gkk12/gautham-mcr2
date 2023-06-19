@@ -1,22 +1,40 @@
-import { useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { habitData } from "../data/habitData";
+import { useEffect, useContext, useState } from "react";
+import { habitTypesData} from "../data/habitData"
+import { useNavigate, useParams } from "react-router-dom";
+
 import {HabitContext} from ".."
 
 export const AboutHabit = () => {
-  const { imageId } = useParams();
-  const { habits } = useContext(HabitContext);
-  let currentProd = {};
+  const { habitId } = useParams();
+  const { habits,deleteHabitHandler,archiveHabitHandler,archivedHabits  } = useContext(HabitContext);
+  const [currentHabit, setCurrentHabit] = useState({})
 
-  const imageCategoryFinder = (name) => {
-    // console.log();
-    return habitData.find(habit => habit.imageCategory === name).imageCategory;
+  const navigate = useNavigate();
+  const habitTypeImageGetter = (name) => {
+
+    console.log(name);
+    return habitTypesData.find(habit => habit.habitCategory === name).habitTypeImage;
   }
+  useEffect(() => {
+    setCurrentHabit(habits.find(habit => habit.habitId === habitId));
+  },[])
 
-
-
-  return <div>This is a Habit
-    {habitData.map(habit =>
-      <div>{ habit.imageCategory}</div>)}
-  </div>;
+  const editHabitHandler = (habit) => {
+    navigate(`/edit/${habit.habitId}`);
+  }
+  return <div>
+    <h2>{currentHabit.habitName}</h2>
+    <img src={habitTypeImageGetter(currentHabit.habitTypeImage)} width={250} height={350}></img>
+    <p>Repeated {currentHabit.habitGoal} {currentHabit.habitRepeat} during {currentHabit.habitTimeOfDay} starting {currentHabit.habitStartDate}</p>
+    <button style={{
+      display: archivedHabits.find(habit => habit.habitId === currentHabit.habitId) === undefined ? "" :"none"
+    }} onClick={() => 
+    {
+      archiveHabitHandler(currentHabit)
+    }}>Archive Habit</button>
+    <button onClick={() => editHabitHandler(currentHabit)}>Edit Habit</button>
+    <button onClick={() => deleteHabitHandler(currentHabit)}>Delete Habit</button>
+    <br/>
+    <button onClick={() => { navigate("/") }}> {"<-"} Go back to all habits</button>
+     </div>;
 };

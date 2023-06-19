@@ -1,21 +1,24 @@
 import { habitData } from "../data/habitData";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { HabitContext } from "..";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 export const NewHabitDialog = () => {
-  const [habitImage, setHabitImage] = useState("Meditate");
+  const [habitTypeImage, setHabitTypeImage] = useState("Mental Health");
   const [habitName, setHabitName] = useState("");
   const [habitRepeat, setHabitRepeat] = useState("Yearly");
   const [habitGoal, setHabitGoal] = useState("1 time");
   const [habitTimeOfDay, setHabitTimeOfDay] = useState("Anytime");
   const [habitStartDate, setHabitStartDate] = useState("Today");
+ 
 
-  const { addHabit, deleteHabit } = useContext(HabitContext);
+  const { addHabit } = useContext(HabitContext);
   const navigate = useNavigate();
 
-  const habitImageSelector = (event) => {
+  
+
+  const habitTypeImageSelector = (event) => {
     console.log(event.target.value);
-    setHabitImage(event.target.value)
+    setHabitTypeImage(event.target.value)
   }
   const habitNameSelector = (event) => {
     console.log(event.target.value);
@@ -41,15 +44,14 @@ export const NewHabitDialog = () => {
     <div>
       <h3>Enter Habit Details </h3>
       <div>
-        <label>Choose habit image</label>
-        <select onChange={habitImageSelector}>
-          <option value="Meditate">Meditate</option>
-          <option value="Set a Todo">Set a to-do list</option>
-          <option value="Drink Water">Drink Water</option>
-          <option value="Read Books">Read Books</option>
-          <option value="Running">Running</option>
+        <label>Choose category</label>
+        <select onChange={habitTypeImageSelector}>
+          <option value="Mental Health">Mental Health</option>
+          <option value="Productivity">Productivity</option>
+          <option value="Healthy Food Habits">Healthy Food Habits</option>
+          <option value="Reading">Reading</option>
+          <option value="Physical Activity">Physical Activity</option>
         </select>
-        sdsd
       </div>
       <br />
       <div>
@@ -98,10 +100,10 @@ export const NewHabitDialog = () => {
       </div>
       <br />
       <div>
-        <button onClick={() => addHabit(habitImage,habitName,habitRepeat,habitGoal,habitTimeOfDay,habitStartDate)}>Save</button>
-        <button onClick={()=>deleteHabit}>Discard</button>
+        <button onClick={() => addHabit(habitTypeImage,habitName,habitRepeat,habitGoal,habitTimeOfDay,habitStartDate)}>Save</button>
       </div>
-      <button onClick={()=>{navigate("/")}}>All habits</button>
+      <br/>
+      <button onClick={() => { navigate("/") }}> {"<-"} Go back to all habits</button>
     </div>
   );
 };

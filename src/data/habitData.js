@@ -1,36 +1,46 @@
 import CreateYourOwn from "../images/2.svg";
-import Meditate from "../images/4.svg";
+import MentalHealth from "../images/4.svg";
 import ToDo from "../images/6.svg";
-import ReadBooks from "../images/8.svg";
-import Running from "../images/12.svg";
-import DrinkWater from "../images/10.svg";
+import Reading from "../images/8.svg";
+import PhysicalActivity from "../images/12.svg";
+import HealthyFoodHabits from "../images/10.svg";
+import ArchivedHabits from "../images/14.svg"
 
-export const habitData = [
+export const habitTypesData = [
   {
-    imageId:1,
-    imageCategory: "Create your own",
-    imageURL: CreateYourOwn
+    habitTypeId: 1,
+    habitCategory: "Create your own",
+    habitTypeImage: CreateYourOwn
+  },
+  
+  {
+    habitTypeId: 2,
+    habitCategory: "Mental Health",
+    habitTypeImage: MentalHealth
   },
   {
-    imageId:2,
-    imageCategory: "Meditate",
-    imageURL: Meditate
+    habitTypeId: 3,
+    habitCategory: "Productivity",
+    habitTypeImage: ToDo
   },
   {
-    imageId:3,
-    imageCategory: "Set a to-do list",
-    imageURL: ToDo
+    habitTypeId: 4,
+    habitCategory: "Healthy Food Habits",
+    habitTypeImage: HealthyFoodHabits
   },
-  {imageId:4,
-    imageCategory: "Drink Water",
-    imageURL: DrinkWater
+  {
+    habitTypeId: 5,
+    habitCategory: "Reading",
+    habitTypeImage: Reading
   },
-  {imageId:5,
-    imageCategory: "Read Books",
-    imageURL: ReadBooks
+  {
+    habitTypeId: 6,
+    imageCategory: "Physical Activity",
+    habitTypeImage: PhysicalActivity
   },
-  {imageId:6,
-    imageCategory: "Running",
-    imageURL: Running
+  {
+    habitTypeId: 7,
+    habitCategory: "Archived Habits",
+    habitTypeImage: ArchivedHabits
   }
 ];
